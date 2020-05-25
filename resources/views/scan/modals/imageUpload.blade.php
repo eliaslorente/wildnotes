@@ -1,0 +1,30 @@
+<form action="{{ url('escaner/crear') }}" method="post">
+  @csrf
+
+  <div class="modal fade" id="imageUploadModal" tabindex="-1" role="dialog"
+    aria-labelledby="imageUploadModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Apunte</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="mt-3" for="Titulo">Título</label>
+            <input class="form-control" type="text" name="name">
+
+            <label for="Contenido mt-2">Contenido</label>
+            <textarea class="form-control" name="content" rows="15">{{ $scan }}</textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary">Guardar apunte</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
