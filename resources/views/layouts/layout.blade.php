@@ -65,6 +65,7 @@
     </ul>
   </div>
 </nav>
+  @include('partials.messages')
   @yield('content')
 </div>
 </body>

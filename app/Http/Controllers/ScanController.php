@@ -18,17 +18,28 @@ class ScanController extends Controller
         return view('scan.index');
     }
 
-    //show the upload form
+
     public function store(Request $request) {
+
+        $request->validate([
+          'title' => 'required',
+          'content' => 'required'
+        ],
+        [
+          'title.required' => 'Es necesario escribir un titulo a la nota',
+          'content.required' => 'Es necesario escribir una nota',
+        ]
+      );
+
         $note = new Note;
-        //dd($request->name);
         $note->user_id = Auth::user()->id;
-        $note->name = $request->name;
-        $note->content = $request->content;
+        $note->name = $vaildated->title;
+        $note->content = $vaildated->content;
         $note->save();
 
-        return view('scan.index');
+        return view('scan.index')->with('success', 'El apunte ha sido guardado correctamente');
     }
+
 
     public function annotateImage(Request $request) {
       if($request->file('image')) {
@@ -43,7 +54,6 @@ class ScanController extends Controller
         //send annotation request
         $response = $gcvRequest->annotate();
 
-        //echo json_encode(["description" => $response->responses[0]->textAnnotations[0]->description]);
         $users = new User;
         $users = $users::all();
 

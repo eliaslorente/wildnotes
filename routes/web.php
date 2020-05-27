@@ -21,9 +21,11 @@ Auth::routes();
 
 Route::get('home', 'HomeController@index')->name('home');
 
-//Route::get('/escanear', 'ScanController@index')->name('scan');
+Route::group(['middleware' => ['auth']], function () {
 
-Route::get('escaner', 'ScanController@index')->name('scan');
-Route::post('escaner', 'ScanController@annotateImage');
-
-Route::post('escaner/crear', 'ScanController@store');
+  Route::prefix('escaner')->group(function () {
+    Route::get('/', 'ScanController@index')->name('scan');
+    Route::post('/', 'ScanController@annotateImage');
+    Route::post('/crear', 'ScanController@store');
+  });
+});

@@ -10,9 +10,7 @@
 
                 <div class="card-body">
                     <form role="form" method="POST" action="/escaner" enctype="multipart/form-data">
-                      @if($imageUploadModal ?? '' != '' && $imageUploadModal)
-                        Aqui: {{ $imageUploadModal ? 'true' : 'false' }}
-                      @endif
+
                         @csrf
                         <div class="form-group row">
                             <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('Subir imagen') }}</label>
@@ -40,7 +38,7 @@
         </div>
     </div>
 </div>
-@if($imageUploadModal ?? '' != '' && $imageUploadModal)
+@if(($imageUploadModal ?? '' != '' && $imageUploadModal) || $errors->any())
   @include('scan.modals.imageUpload')
   <script>
       $( document ).ready(function() {

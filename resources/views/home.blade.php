@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    Hola, {{ ucwords(Auth::user()->name) }} <i class="far fa-smile-wink"></i>
+                    Hola, {{ ucwords(Auth::user()->name) }} ;)
                 </div>
             </div>
         </div>
