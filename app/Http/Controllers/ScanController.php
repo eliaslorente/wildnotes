@@ -33,8 +33,8 @@ class ScanController extends Controller
 
         $note = new Note;
         $note->user_id = Auth::user()->id;
-        $note->name = $vaildated->title;
-        $note->content = $vaildated->content;
+        $note->name = $request->title;
+        $note->content = $request->content;
         $note->save();
 
         return view('scan.index')->with('success', 'El apunte ha sido guardado correctamente');

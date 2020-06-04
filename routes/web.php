@@ -22,10 +22,15 @@ Auth::routes();
 Route::get('home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function () {
-
   Route::prefix('escaner')->group(function () {
     Route::get('/', 'ScanController@index')->name('scan');
     Route::post('/', 'ScanController@annotateImage');
     Route::post('/crear', 'ScanController@store');
+  });
+});
+
+Route::group(['middleware' => ['auth']], function () {
+  Route::prefix('notes')->group(function () {
+    Route::get('/', 'NoteController@index')->name('notes');
   });
 });

@@ -37,9 +37,23 @@
             </div>
         </div>
     </div>
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-8">
+          O si lo prefiere puede...
+            <div class="card">
+                <div class="card-header">Crear una nota</div>
+
+                <div class="card-body">
+                    <button type="button" class="btn btn-primary" name="button"
+                    data-toggle="modal" data-target="#imageUploadModal">Crear Nota</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+@include('scan.modals.imageUpload')
 @if(($imageUploadModal ?? '' != '' && $imageUploadModal) || $errors->any())
-  @include('scan.modals.imageUpload')
   <script>
       $( document ).ready(function() {
         $('#imageUploadModal').modal('show');

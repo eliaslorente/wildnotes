@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', config('app.name', 'Laravel'))</title>
+    <title>@yield('title', config('app.name', 'WildNotes'))</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -25,7 +25,7 @@
 <body>
 <div id="app">
 <nav class="navbar navbar-expand-lg navbar-light bg-light pb-5">
-  <a class="navbar-brand" href="/home">WildNotes</a>
+  <a class="navbar-brand" href="/home">{{ config('app.name', 'WildNotes') }}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -36,7 +36,7 @@
         <a class="nav-link" href="{{ route('scan') }}">Escanear</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Materias</a>
+        <a class="nav-link" href="{{ route('notes') }}">Apuntes</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Grupos</a>
