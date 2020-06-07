@@ -33,7 +33,7 @@ class NoteController extends Controller
           'id' => $id,
           'user_id' => Auth::user()->id
         ])->first();
-        
+
         if ($note != null) {
           return view('notes.show', ['note' => $note, 'editNoteModal' => true]);
         } else {

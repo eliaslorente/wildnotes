@@ -10,9 +10,6 @@
           <div class="col-12 col-md-4 col-lg-3 mb-3">
             <div class="card">
               <div class="card-header">
-                {{--@if(!$note->subject->isEmpty())
-                  @foreach($note->tags as $tag)
-                @endif--}}
                 {{ $note->subject['name'] }}
               </div>
               <div class="card-body text-dark">

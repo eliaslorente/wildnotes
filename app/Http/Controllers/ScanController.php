@@ -8,16 +8,32 @@ use GoogleCloudVision\GoogleCloudVision;
 use GoogleCloudVision\Request\AnnotateImageRequest;
 use App\User;
 use App\Note;
+use App\Subject;
+use App\Tag;
 use Auth;
 
 class ScanController extends Controller
 {
+    private $tags;
+    private $subjects;
 
-    //show the upload form
-    public function index(){
-        return view('scan.index');
+    public function __construct(Request $request)
+    {
+      $this->middleware(function ($request, $next) {
+          $this->tags = Tag::where('user_id', Auth::id())->get();
+          $this->subjects = Subject::where('user_id', Auth::id())->get();
+
+          return $next($request);
+      });
     }
 
+    public function index() {
+
+        return view('scan.index', [
+          'tags' => $this->tags,
+          'subjects' => $this->subjects
+        ]);
+    }
 
     public function store(Request $request) {
 
@@ -30,14 +46,20 @@ class ScanController extends Controller
           'content.required' => 'Es necesario escribir una nota',
         ]
       );
-
+        dd($request);
         $note = new Note;
         $note->user_id = Auth::user()->id;
         $note->name = $request->title;
         $note->content = $request->content;
+        $note->subject = $request->subject;
+        $note->tags->attach($request->tags);
         $note->save();
 
-        return view('scan.index')->with('success', 'El apunte ha sido guardado correctamente');
+        return view('scan.index')->with([
+          'success', 'El apunte ha sido guardado correctamente',
+          'tags' => $this->tags,
+          'subjects' => $this->subjects
+      ]);
     }
 
 
@@ -57,8 +79,12 @@ class ScanController extends Controller
         $users = new User;
         $users = $users::all();
 
-        return view('scan.index')->with(['scan' => $response->responses[0]->textAnnotations[0]->description,
-          'imageUploadModal' => true]);
+        return view('scan.index')->with([
+          'scan' => $response->responses[0]->textAnnotations[0]->description,
+          'imageUploadModal' => true,
+          'tags' => $this->tags,
+          'subjects' => $this->subjects
+        ]);
       }
     }
 }
