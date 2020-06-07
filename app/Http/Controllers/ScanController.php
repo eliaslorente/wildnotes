@@ -44,8 +44,7 @@ class ScanController extends Controller
         [
           'title.required' => 'Es necesario escribir un titulo a la nota',
           'content.required' => 'Es necesario escribir una nota',
-        ]
-      );
+        ]);
 
         $note = new Note;
         $note->user_id = Auth::user()->id;
@@ -55,7 +54,7 @@ class ScanController extends Controller
         $note->save();
 
         $note->tags()->sync($request->tags);
-        
+
         return view('scan.index')->with([
           'success' => 'La nota ha sido guardada correctamente',
           'tags' => $this->tags,
