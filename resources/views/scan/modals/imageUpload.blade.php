@@ -16,14 +16,14 @@
 
             <label class="mt-3" for="titulo">Título</label>
             <input class="form-control" type="text" name="title" required
-              value="{{ $errors->any() ? old('title') : "" }}">
+              value="{{ old('title') }}">
             @error('title')
               <div class="alert alert-danger mt-2">{{ $message }}</div>
             @enderror
 
             <label for="contenido">Contenido</label>
             <textarea class="form-control" required
-              name="content" rows="15">{{ $errors->any() ? old('content') : $scan ?? '' }}
+              name="content" rows="15">{{ old('content', $scan ?? '') }}
             </textarea>
             @error('content')
                 <div class="alert alert-danger mt-2">{{ $message }}</div>

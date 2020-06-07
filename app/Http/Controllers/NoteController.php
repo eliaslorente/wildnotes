@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Note;
 use Illuminate\Http\Request;
+use App\Note;
+use App\User;
+use Auth;
 
 class NoteController extends Controller
 {
@@ -14,7 +16,40 @@ class NoteController extends Controller
      */
     public function index()
     {
-        return view('notes.index');
+        $notes = Note::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(8);
+
+        return view('notes.index', ['notes' => $notes]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Note  $note
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $note = Note::where([
+          'id' => $id,
+          'user_id' => Auth::user()->id
+        ])->first();
+        
+        if ($note != null) {
+          return view('notes.show', ['note' => $note, 'editNoteModal' => true]);
+        } else {
+          return redirect('notes');
+        }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Note  $note
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Note $note)
+    {
+        //
     }
 
     /**
@@ -34,28 +69,6 @@ class NoteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Note  $note
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Note $note)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Note  $note
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Note $note)
     {
         //
     }
