@@ -46,17 +46,18 @@ class ScanController extends Controller
           'content.required' => 'Es necesario escribir una nota',
         ]
       );
-        dd($request);
+
         $note = new Note;
         $note->user_id = Auth::user()->id;
         $note->name = $request->title;
         $note->content = $request->content;
-        $note->subject = $request->subject;
-        $note->tags->attach($request->tags);
+        $request->subject != null ? $note->subject_id = $request->subject : '';
         $note->save();
 
+        $note->tags()->sync($request->tags);
+        
         return view('scan.index')->with([
-          'success', 'El apunte ha sido guardado correctamente',
+          'success' => 'La nota ha sido guardada correctamente',
           'tags' => $this->tags,
           'subjects' => $this->subjects
       ]);

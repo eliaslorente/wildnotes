@@ -49,7 +49,7 @@
           @if(!$tags->isEmpty())
             <div class="form-group">
               <label for="etiquetas">Etiquetas</label>
-                <select multiple class="form-control" name="tags">
+                <select multiple class="form-control" name="tags[]">
                   @foreach($tags as $tag)
                     <option value="{{ $tag->id }}">
                       {{ $tag->name }}
