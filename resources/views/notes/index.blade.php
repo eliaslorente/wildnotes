@@ -1,57 +1,64 @@
-@extends('layouts.layout')
+@extends('layouts.timLayout')
 
 @section('content')
 
 <div class="content">
-
-  <div class="row">
-    <div class="col-1 col-md-2">
-      aside
-    </div>
-    <div class="col-11 col-md-9 d-flex justify-content-center">
-      <div class="card-deck">
-        @foreach ($notes as $note)
-            <div class="col-12 col-md-4 col-lg-3 mb-3">
-              <div class="card">
-                <div class="card-header">
-                  {{ $note->subject['name'] }}
-                </div>
-                <div class="card-body text-dark">
-                  <h5 class="card-title">{{ $note->name }}</h5>
-                  <p class="card-text">
-                    {{ \Illuminate\Support\Str::limit(strip_tags($note->content), 90)}}
-                  </p>
-                  <a href="{{ route('notes.show', ['id' => $note->id]) }}">
-                    <button type="button" class="btn btn-primary" name="button">
-                      Ver
-                    </button>
-                  </a>
-                </div>
-                <div class="card-footer text-muted">
-                  @if(!$note->tags->isEmpty())
+  <div class="container-fluid">
+    @foreach($notes->chunk(4) as $four)
+    <div class="row">
+      @foreach($four as $note)
+      <div class="col-lg-3 col-md-6 col-sm-6 d-flex align-items-stretch">
+        <div class="card card-stats">
+          <div class="card-header card-header-{{ $note->color->class ?? '' }} card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">notes</i>
+            </div>
+            <p class="card-category">{{ $note->subject['name'] }}</p>
+            <h3 class="card-title">
+              {{ $note->name }}
+            </h3>
+            <div class="card-body">
+              <span class="text-align-left" style="color:black">
+                {{ \Illuminate\Support\Str::limit(strip_tags($note->content), 90)}}
+              </span>
+            </div>
+            <a href="{{ route('notes.show', ['id' => $note->id]) }}">
+              <button type="button" class="btn btn-primary py-2 px-1" name="button">
+                <i class="material-icons" style="font-size:20px">visibility</i>
+              </button>
+            </a>
+            <a href="#">
+              <button type="button" class="btn btn-primary py-2 px-1" name="button">
+                <i class="material-icons" style="font-size:20px">edit</i>
+              </button>
+            </a>
+            <a href="#">
+              <button type="button" class="btn btn-primary py-2 px-1" name="button">
+                <i class="material-icons" style="font-size:20px">delete</i>
+              </button>
+            </a>
+          </div>
+          <div class="card-footer">
+            @if(!$note->tags->isEmpty())
+              <div class="stats">
+                <i class="material-icons">label</i>
                     @foreach($note->tags as $tag)
                       <span>#{{ $tag->name }} </span>
                     @endforeach
-                  @endif
-                </div>
               </div>
-            </div>
-        @endforeach
+            @endif
+          </div>
+        </div>
       </div>
+      @endforeach
     </div>
-  </div>
-  <span class="mt-2 d-flex justify-content-center">
-    {{ $notes->links() }}
-  </span>
-</div>
+    @endforeach
 
-{{--@include('notes.modals.editNote')
-@if(($editNoteModal ?? '' != '' && $editNoteModal) || $errors->any())
-  <script>
-      $( document ).ready(function() {
-        $('#editNoteModal').modal('show');
-      });
-  </script>
-@endif--}}
+    <span class="mt-2 d-flex justify-content-center">
+      {{ $notes->links() }}
+    </span>
+
+  </div>
+</div>
 
 @endsection

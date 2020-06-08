@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Tag;
 use App\Subject;
+use App\Color;
 
 class Note extends Model
 {
@@ -23,5 +24,10 @@ class Note extends Model
   public function tags()
   {
       return $this->belongsToMany(Tag::class);
+  }
+
+  public function color()
+  {
+      return $this->belongsTo(Color::class);
   }
 }

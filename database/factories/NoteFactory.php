@@ -5,6 +5,7 @@
 use App\Note;
 use App\Subject;
 use App\User;
+use App\Color;
 use Faker\Generator as Faker;
 
 $factory->define(Note::class, function (Faker $faker) {
@@ -13,6 +14,7 @@ $factory->define(Note::class, function (Faker $faker) {
         'name' => $faker->sentence(1,3),
         'content' => $faker->text,
         'user_id' => $user,
-        'subject_id' => Subject::where('user_id', $user)->get()->random()->id
+        'subject_id' => Subject::where('user_id', $user)->get()->random()->id,
+        'color_id' => Color::all()->random()->id
     ];
 });
