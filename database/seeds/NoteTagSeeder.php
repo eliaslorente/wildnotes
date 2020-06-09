@@ -13,9 +13,10 @@ class NoteTagSeeder extends Seeder
      */
     public function run()
     {
-      $notes = App\Note::all();
-      
-      App\Tag::all()->each(function ($tag) use ($notes) {
+      $user = App\User::all()->random();
+      $notes = App\Note::where('user_id', $user->id)->get();
+
+      App\Tag::where('user_id', $user->id)->each(function ($tag) use ($notes) {
         $tag->notes()->attach(
             $notes->random(rand(1, 3))->pluck('id')->toArray()
         );

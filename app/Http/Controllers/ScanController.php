@@ -22,7 +22,7 @@ class ScanController extends Controller
       $this->middleware(function ($request, $next) {
           $this->tags = Tag::where('user_id', Auth::id())->get();
           $this->subjects = Subject::where('user_id', Auth::id())->get();
-
+          
           return $next($request);
       });
     }

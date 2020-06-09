@@ -1,5 +1,7 @@
 @extends('layouts.timLayout')
 
+@include('partials.sidebar')
+
 @section('content')
 
 <div class="content">
@@ -27,7 +29,7 @@
                 <i class="material-icons" style="font-size:20px">visibility</i>
               </button>
             </a>
-            <a href="#">
+            <a href="{{ route('notes.edit', ['id' => $note->id]) }}">
               <button type="button" class="btn btn-primary py-2 px-1" name="button">
                 <i class="material-icons" style="font-size:20px">edit</i>
               </button>

@@ -32,6 +32,8 @@ Route::group(['middleware' => ['auth']], function () {
 Route::group(['middleware' => ['auth']], function () {
   Route::prefix('notes')->group(function () {
     Route::get('/', 'NoteController@index')->name('notes');
+    Route::post('/', 'NoteController@filter')->name('notes.filter');
+    Route::get('/edit/{id}', 'NoteController@edit')->name('notes.edit');
     Route::get('/{id}', 'NoteController@show')->name('notes.show');
   });
 });
