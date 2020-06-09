@@ -19,7 +19,13 @@
         @forelse ($subjects as $subject)
           <a class="form-check nav-link mt-0 pt-0">
             <label class="form-check-label">
-              <input type="checkbox" name="subject[]" value="{{ $subject->id }}">
+              <input type="checkbox" name="subjects[]" value="{{ $subject->id }}"
+              @if(isset($checkSubjects))
+                @foreach ($checkSubjects as $checkSubject)
+                   {{ $checkSubject == $subject->id ? 'checked' : '' }}
+                @endforeach
+              @endif
+              >
                 {{ $subject->name }}
             </label>
           </a>
@@ -31,29 +37,18 @@
       </li>
       <li class="nav-item">
         <label class="form-check-label nav-link mt-2">
-          ETIQUETAS
-        </label>
-        @forelse ($tags as $tag)
-          <a class="form-check nav-link mt-0 pt-0">
-            <label class="form-check-label">
-              <input type="checkbox" name="tag[]" value="{{ $tag->id }}">
-                {{ $tag->name }}
-            </label>
-          </a>
-        @empty
-          <label class="form-check-label">
-            No hay etiquetas disponibles
-          </label>
-        @endforelse
-      </li>
-      <li class="nav-item">
-        <label class="form-check-label nav-link mt-2">
           COLORES
         </label>
         @forelse ($colors as $color)
           <a class="form-check nav-link mt-0 pt-0">
             <label class="form-check-label">
-              <input type="checkbox" name="color[]" value="{{ $color->id }}">
+              <input type="checkbox" name="colors[]" value="{{ $color->id }}"
+              @if(isset($checkColors))
+                @foreach ($checkColors as $checkColor)
+                   {{ $checkColor == $color->id ? 'checked' : '' }}
+                @endforeach
+              @endif
+              >
                 {{ $color->name }}
             </label>
           </a>

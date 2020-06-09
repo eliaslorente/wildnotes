@@ -53,18 +53,23 @@ class NoteController extends Controller
      */
     public function filter(Request $request)
     {
-        dd($request);
 
-        $notes = Note::where([
-          'user_id' => Auth::user()->id,
+        $allSubjects = Subject::select('id')->where('user_id', Auth::user()->id)->get();
+        $allColors = Color::select('id')->get();
 
-          ])->orderBy('created_at', 'desc')->paginate(8);
+        $notes = Note::where(['user_id' => Auth::user()->id])
+          ->whereIn('subject_id', $request->subjects ?? $allSubjects)
+          ->whereIn('color_id', $request->colors ?? $allColors)
+          ->orderBy('created_at', 'desc')->paginate(8);
 
         return view('notes.index', [
           'notes' => $notes,
           'subjects' => $this->subjects,
           'tags' => $this->tags,
-          'colors' => $this->colors
+          'colors' => $this->colors,
+          //Mantiene seleccionados los checks
+          'checkColors' => $request->colors,
+          'checkSubjects' => $request->subjects
         ]);
     }
 
