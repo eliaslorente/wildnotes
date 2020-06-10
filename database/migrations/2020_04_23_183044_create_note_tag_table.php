@@ -16,7 +16,7 @@ class CreateNoteTagTable extends Migration
         Schema::create('note_tag', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('note_id');
-            $table->foreign('note_id')->references('id')->on('notes');
+            $table->foreign('note_id')->references('id')->on('notes')->onDelete('cascade');
             $table->unsignedBigInteger('tag_id');
             $table->foreign('tag_id')->references('id')->on('tags');
             $table->timestamps();

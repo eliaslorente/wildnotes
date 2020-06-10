@@ -18,13 +18,12 @@
 </head>
 
 <body>
-  @include('partials.messages')
   <div class="main-panel">
     @include('partials.navbar')
+    @include('partials.messages')
     @yield('content')
     @include('partials.footer')
   </div>
-
 
   <!--   Core JS Files   -->
   <script src="{{ asset('js/core/jquery.min.js') }}"></script>
@@ -67,6 +66,12 @@
   <script src="{{ asset('js/plugins/bootstrap-notify.js') }}"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="{{ asset('js/material-dashboard.js?v=2.1.2') }}" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    $(".alert").fadeTo(2000, 500).slideUp(500, function(){
+      $(".alert").slideUp(500);
+    });
+  </script>
   <script>
     $(document).ready(function() {
       $().ready(function() {

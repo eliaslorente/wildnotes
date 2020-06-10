@@ -160,8 +160,11 @@ class NoteController extends Controller
      * @param  \App\Note  $note
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Note $note)
+    public function destroy($id)
     {
-        //
+        $note = Note::find($id);
+        $note->delete();
+
+        return back()->with('success', 'Se ha eliminado la nota con éxito');
     }
 }

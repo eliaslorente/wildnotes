@@ -35,7 +35,8 @@
               </button>
             </a>
             <a href="#">
-              <button type="button" class="btn btn-primary py-2 px-1" name="button">
+              <button type="button" class="btn btn-primary py-2 px-1"
+              data-target="#deleteNoteModal" data-toggle="modal" onclick="idToModal({{ $note->id }})">
                 <i class="material-icons" style="font-size:20px">delete</i>
               </button>
             </a>
@@ -60,7 +61,13 @@
       {{ $notes->links() }}
     </span>
 
+    @include('notes.modals.deleteNoteModal')
   </div>
 </div>
 
+<script type="text/javascript">
+    function idToModal(id) {
+      $('#deleteNoteForm')[0].action = $('#deleteNoteForm')[0].action + "/" + id;
+    }
+</script>
 @endsection
