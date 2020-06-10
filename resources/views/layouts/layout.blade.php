@@ -23,8 +23,10 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-<div id="app">
-<nav class="navbar navbar-expand-lg navbar-light bg-light pb-5">
+<div id="app" class="main-panel">
+  {{--@include('partials.navbar')--}}
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light pb-5">
   <a class="navbar-brand" href="/home">{{ config('app.name', 'WildNotes') }}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -33,7 +35,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('scan') }}">Escanear</a>
+        <a class="nav-link" href="{{ route('scan') }}">Crear</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ route('notes') }}">Apuntes</a>
@@ -41,15 +43,11 @@
       <li class="nav-item">
         <a class="nav-link" href="#">Grupos</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Calendario</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Gestión de usuarios</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Sugerencias</a>
-      </li>
+      @if (Auth::user()->role->role_name == 'admin')
+        <li class="nav-item">
+          <a class="nav-link" href="#">Administrar usuarios</a>
+        </li>
+      @endif
     </ul>
     <ul class="navbar-nav">
       <li class="nav-item ">

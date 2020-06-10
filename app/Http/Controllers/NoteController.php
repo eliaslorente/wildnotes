@@ -23,7 +23,7 @@ class NoteController extends Controller
           $this->subjects = Subject::where('user_id', Auth::user()->id)->get();
           $this->tags = Tag::where('user_id', Auth::user()->id)->get();
           $this->colors = Color::all();
-
+          
           return $next($request);
       });
     }
@@ -105,8 +105,6 @@ class NoteController extends Controller
           'id' => $id,
           'user_id' => Auth::user()->id
         ])->first();
-
-        //dd($this->subjects[2]->name);
 
         if ($note != null) {
           return view('notes.edit', [

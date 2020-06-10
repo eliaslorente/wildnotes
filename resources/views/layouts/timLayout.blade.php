@@ -18,7 +18,7 @@
 </head>
 
 <body>
-  <div class="main-panel">
+  <div class="main-panel @yield('classDiv')">
     @include('partials.navbar')
     @include('partials.messages')
     @yield('content')

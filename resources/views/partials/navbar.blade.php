@@ -9,9 +9,11 @@
       <div class="navbar-wrapper">
         <a class="navbar-brand" href="#">Grupos</a>
       </div>
-      <div class="navbar-wrapper">
-        <a class="navbar-brand" href="#">Administrar usuarios</a>
-      </div>
+      @if (Auth::user()->role->role_name == 'admin')
+        <div class="navbar-wrapper">
+          <a class="navbar-brand" href="#">Administrar usuarios</a>
+        </div>
+      @endif
       <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav">
           <li class="nav-item dropdown">
@@ -35,7 +37,7 @@
               </p>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-              <a class="dropdown-item" href="#">Perfil</a>
+              <a class="dropdown-item" href="#">{{ Auth::user()->name }}</a>
               <a class="dropdown-item" href="#">Ajustes</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{ route('logout') }}"
