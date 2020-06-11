@@ -10933,3 +10933,8 @@ a.text-dark:focus {
   }
 }
 
+.btn-wild {
+  background-color: #9c27b0;
+  border-color: #9c27b0;
+  color: white;
+}

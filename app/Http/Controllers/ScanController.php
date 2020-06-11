@@ -10,19 +10,22 @@ use App\User;
 use App\Note;
 use App\Subject;
 use App\Tag;
+use App\Color;
 use Auth;
 
 class ScanController extends Controller
 {
     private $tags;
     private $subjects;
+    private $colors;
 
     public function __construct(Request $request)
     {
       $this->middleware(function ($request, $next) {
           $this->tags = Tag::where('user_id', Auth::id())->get();
           $this->subjects = Subject::where('user_id', Auth::id())->get();
-          
+          $this->colors = Color::all();
+
           return $next($request);
       });
     }
@@ -31,11 +34,14 @@ class ScanController extends Controller
 
         return view('scan.index', [
           'tags' => $this->tags,
-          'subjects' => $this->subjects
+          'subjects' => $this->subjects,
+          'colors' => $this->colors
         ]);
     }
 
     public function store(Request $request) {
+
+        //dd($request->tags);
 
         $request->validate([
           'title' => 'required',
@@ -45,12 +51,21 @@ class ScanController extends Controller
           'title.required' => 'Es necesario escribir un titulo a la nota',
           'content.required' => 'Es necesario escribir una nota',
         ]);
+        //Crea el subject en caso de ser nuevo
+        if ($request->subject != null && !is_numeric($request->subject)) {
+          $subject = new Subject;
+          $subject->name = $request->subject;
+          $subject->user_id = Auth::user()->id;
+          $subject->save();
+          $request->subject = $subject->id;
+        }
 
         $note = new Note;
         $note->user_id = Auth::user()->id;
         $note->name = $request->title;
         $note->content = $request->content;
         $request->subject != null ? $note->subject_id = $request->subject : '';
+        $request->color != null ? $note->color_id = $request->color : '';
         $note->save();
 
         $note->tags()->sync($request->tags);
@@ -58,7 +73,8 @@ class ScanController extends Controller
         return view('scan.index')->with([
           'success' => 'La nota ha sido guardada correctamente',
           'tags' => $this->tags,
-          'subjects' => $this->subjects
+          'subjects' => $this->subjects,
+          'colors' => $this->colors
       ]);
     }
 
@@ -83,7 +99,8 @@ class ScanController extends Controller
           'scan' => $response->responses[0]->textAnnotations[0]->description,
           'imageUploadModal' => true,
           'tags' => $this->tags,
-          'subjects' => $this->subjects
+          'subjects' => $this->subjects,
+          'colors' => $this->colors
         ]);
       }
     }

@@ -27,8 +27,8 @@
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-6">
-                                <button type="submit" class="btn btn-primary" style="background-color: #9c27b0; border-color: #9c27b0">
-                                    Enviar
+                                <button type="submit" class="btn btn-wild">
+                                    Crear
                                 </button>
                             </div>
 
@@ -42,7 +42,7 @@
                 <div class="card-header">Crear una nota</div>
 
                 <div class="card-body">
-                    <button type="button" class="btn btn-primary" name="button" style="background-color: #9c27b0; border-color: #9c27b0"
+                    <button type="button" class="btn btn-wild" name="button"
                     data-toggle="modal" data-target="#imageUploadModal">Crear Nota</button>
                 </div>
             </div>
@@ -55,6 +55,16 @@
 </div>
 </div>
 @include('scan.modals.imageUpload')
+@include('scan.modals.tagModal')
+<script>
+  function createSubject() {
+    $("#subjectModal").modal('hide');//ocultamos el modal
+    $("#selectSubject").append(new Option($('#subjectName')[0].value, $('#subjectName')[0].value));
+    $("#selectSubject option:last").attr("selected", "selected");
+    //$('body').removeClass('modal-open');//eliminamos la clase del body para poder hacer scroll
+    //$('.modal-backdrop').remove();//eliminamos el backdrop del modal
+  }
+</script>
 @if(($imageUploadModal ?? '' != '' && $imageUploadModal) || $errors->any())
   <script>
       $( document ).ready(function() {
