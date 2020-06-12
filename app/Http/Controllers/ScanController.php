@@ -59,6 +59,21 @@ class ScanController extends Controller
           $subject->save();
           $request->subject = $subject->id;
         }
+        //Crea tags en caso de ser nuevos
+        if ($request->tags != null) {
+          foreach ($request->tags as $key => $tag) {
+            if (!is_numeric($tag)) {
+              $newTag = new Tag;
+              $newTag->name = $tag;
+              $newTag->user_id = Auth::user()->id;
+              $newTag->save();
+              $array = $request->tags;
+              $array[$key] = strval($newTag->id);
+              array_merge($request->tags, $array);
+              $request->tags = $array;
+            }
+          }
+        }
 
         $note = new Note;
         $note->user_id = Auth::user()->id;

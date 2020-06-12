@@ -37,9 +37,10 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="bmd-label-floating">Materia</label>
-                    <select class="form-control" required>
+                    <select class="form-control" >
+                    <option value="">Materias</option>
                     @foreach($subjects as $subject)
-                      <option value="{{ $subject->id }}" {{ $note->subject->id == $subject->id ? 'selected' : '' }}>
+                      <option value="{{ $subject->id }}" {{ $note->subject != null && $note->subject->id == $subject->id ? 'selected' : '' }}>
                         {{ $subject->name }}
                       </option>
                     @endforeach
@@ -50,9 +51,10 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="bmd-label-floating">Color</label>
-                    <select class="form-control" required>
+                    <select class="form-control" >
+                    <option value="">Colores</option>
                     @foreach($colors as $color)
-                      <option value="{{ $color->id }}" {{ $note->color->id == $color->id ? 'selected' : '' }}
+                      <option value="{{ $color->id }}" {{ $note->color != null && $note->color->id == $color->id ? 'selected' : '' }}
                         style="background-color: {{ $color->hexadecimal ?? '' }}">{{ $color->name }}</option>
                     @endforeach
                     </select>

@@ -10938,3 +10938,7 @@ a.text-dark:focus {
   border-color: #9c27b0;
   color: white;
 }
+
+.modal {
+  overflow-y:auto;
+}

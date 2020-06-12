@@ -55,14 +55,20 @@
 </div>
 </div>
 @include('scan.modals.imageUpload')
+@include('scan.modals.subjectModal')
 @include('scan.modals.tagModal')
 <script>
   function createSubject() {
     $("#subjectModal").modal('hide');//ocultamos el modal
     $("#selectSubject").append(new Option($('#subjectName')[0].value, $('#subjectName')[0].value));
     $("#selectSubject option:last").attr("selected", "selected");
-    //$('body').removeClass('modal-open');//eliminamos la clase del body para poder hacer scroll
-    //$('.modal-backdrop').remove();//eliminamos el backdrop del modal
+    $('#subjectName')[0].value = "";
+  }
+  function createTag() {
+    $("#tagModal").modal('hide');//ocultamos el modal
+    $("#selectTag").append(new Option($('#tagName')[0].value, $('#tagName')[0].value));
+    $("#selectTag option:last").attr("selected", "selected");
+    $('#tagName')[0].value = "";
   }
 </script>
 @if(($imageUploadModal ?? '' != '' && $imageUploadModal) || $errors->any())
