@@ -38,7 +38,7 @@
         <a class="nav-link" href="{{ route('notes') }}">Apuntes</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Grupos</a>
+        <a class="nav-link" href="{{ route('notif') }}">Compartir</a>
       </li>
       @if (Auth::user()->role->role_name == 'admin')
         <li class="nav-item">

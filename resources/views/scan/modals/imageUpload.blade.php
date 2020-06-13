@@ -30,27 +30,27 @@
             @enderror
           </div>
 
-          @if(!$subjects->isEmpty())
-            <div class="row align-items-center">
-              <div class="form-group col-sm-10">
-                <label for="etiquetas">Materias</label>
-                  <select class="form-control" name="subject" id="selectSubject">
-                    <option value="">Materias</option>
+          <div class="row align-items-center">
+            <div class="form-group col-sm-10">
+              <label for="etiquetas">Materias</label>
+                <select class="form-control" name="subject" id="selectSubject">
+                  <option value="">Materias</option>
+                  @if(!$subjects->isEmpty())
                     @foreach($subjects as $subject)
                       <option value="{{ $subject->id }}"
                         {{ old('subject') == $subject->id ? 'selected' : '' }}>
                         {{ $subject->name }}
                       </option>
                     @endforeach
-                  </select>
-              </div>
-              <div class="col-sm-2 mt-3 pl-0">
-                <button class="btn btn-wild pb-0" type="button" data-toggle="modal" data-target="#subjectModal">
-                  <i class="material-icons" style="font-size:20px">add_box</i>
-                </button>
-              </div>
+                  @endif
+                </select>
             </div>
-          @endif
+            <div class="col-sm-2 mt-3 pl-0">
+              <button class="btn btn-wild pb-0" type="button" data-toggle="modal" data-target="#subjectModal">
+                <i class="material-icons" style="font-size:20px">add_box</i>
+              </button>
+            </div>
+          </div>
 
           @if(!$colors->isEmpty())
             <div class="form-group">
@@ -68,25 +68,25 @@
             </div>
           @endif
 
-          @if(!$tags->isEmpty())
-            <div class="row align-items-center">
-              <div class="form-group col-sm-10">
-                <label for="etiquetas">Etiquetas</label>
-                  <select multiple class="form-control" name="tags[]" id="selectTag">
-                    @foreach($tags as $tag)
-                      <option value="{{ $tag->id }}">
-                        {{ $tag->name }}
-                      </option>
-                    @endforeach
-                  </select>
-              </div>
-                <div class="col-sm-2 mt-3 pl-0">
-                  <button class="btn btn-wild pb-0" type="button" data-toggle="modal" data-target="#tagModal">
-                    <i class="material-icons" style="font-size:20px">add_box</i>
-                  </button>
-                </div>
+        <div class="row align-items-center">
+          <div class="form-group col-sm-10">
+            <label for="etiquetas">Etiquetas</label>
+              <select multiple class="form-control" name="tags[]" id="selectTag">
+              @if(!$tags->isEmpty())
+                @foreach($tags as $tag)
+                  <option value="{{ $tag->id }}">
+                    {{ $tag->name }}
+                  </option>
+                @endforeach
+              @endif
+              </select>
             </div>
-          @endif
+              <div class="col-sm-2 mt-3 pl-0">
+                <button class="btn btn-wild pb-0" type="button" data-toggle="modal" data-target="#tagModal">
+                  <i class="material-icons" style="font-size:20px">add_box</i>
+                </button>
+              </div>
+          </div>
 
         </div>
         <div class="modal-footer">

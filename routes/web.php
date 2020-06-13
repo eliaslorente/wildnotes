@@ -21,6 +21,14 @@ Auth::routes();
 
 Route::get('home', 'HomeController@index')->name('home');
 
+
+Route::group(['middleware' => ['auth']], function () {
+  Route::prefix('notifications')->group(function () {
+    Route::get('/', 'NotificationsController@index')->name('notif');
+    Route::post('/search', 'NotificationsController@search')->name('notif.search');
+  });
+});
+
 Route::group(['middleware' => ['auth']], function () {
   Route::prefix('escaner')->group(function () {
     Route::get('/', 'ScanController@index')->name('scan');

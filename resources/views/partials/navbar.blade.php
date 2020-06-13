@@ -7,7 +7,7 @@
         <a class="navbar-brand" href="{{ route('notes') }}">Apuntes</a>
       </div>
       <div class="navbar-wrapper">
-        <a class="navbar-brand" href="#">Grupos</a>
+        <a class="navbar-brand" href="{{ route('notif') }}">Compartir</a>
       </div>
       @if (Auth::user()->role->role_name == 'admin')
         <div class="navbar-wrapper">
@@ -17,7 +17,7 @@
       <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav">
           <li class="nav-item dropdown">
-            <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="material-icons">notifications</i>
               <span class="notification">5</span>
             </a>
