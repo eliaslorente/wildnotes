@@ -23,7 +23,7 @@ class NoteController extends Controller
           $this->subjects = Subject::where('user_id', Auth::user()->id)->get();
           $this->tags = Tag::where('user_id', Auth::user()->id)->get();
           $this->colors = Color::all();
-          
+
           return $next($request);
       });
     }
@@ -87,7 +87,13 @@ class NoteController extends Controller
         ])->first();
 
         if ($note != null) {
-          return view('notes.show', ['note' => $note, 'editNoteModal' => true]);
+          return view('notes.show', [
+            'note' => $note,
+            'editNoteModal' => true,
+            'subjects' => $this->subjects,
+            'tags' => $this->tags,
+            'colors' => $this->colors,
+          ]);
         } else {
           return redirect('notes');
         }
@@ -147,9 +153,31 @@ class NoteController extends Controller
      * @param  \App\Note  $note
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Note $note)
+    public function update(Request $request, $id)
     {
-        //
+      //dd($request->subject);
+      $request->validate([
+        'title' => 'required',
+        'content' => 'required'
+      ],
+      [
+        'title.required' => 'Es necesario escribir un titulo a la nota',
+        'content.required' => 'Es necesario escribir una nota',
+      ]);
+
+      $note = Note::find($id);
+      $note->name = $request->title;
+      $note->content = $request->content;
+      $note->subject_id = $request->subject != null ? $request->subject : null;
+      $note->color_id = $request->color != null ? $request->color : null;
+      $note->save();
+      
+      $note->tags()->sync($request->tags);
+
+      return redirect()->action(
+          'NoteController@show', ['id' => $note->id]
+      )->with('success', 'La nota se ha editado correctamente');
+
     }
 
     /**

@@ -1,7 +1,10 @@
 @extends('layouts.timLayout')
+@section('classDiv', 'w-100')
 
 @section('content')
-  <div class="content">
+<div class="content">
+  <form action="{{ url('notes/update') }}/{{ $note->id }}" method="post">
+  @csrf
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-8">
@@ -10,13 +13,12 @@
             <h4 class="card-title">Editar apunte</h4>
           </div>
           <div class="card-body">
-            <form action="" method="post">
 
               <div class="row">
                 <div class="col-md-5">
                   <div class="form-group">
                     <label class="bmd-label-floating">Título</label>
-                    <input type="text" class="form-control" value="{{ $note->name }}"
+                    <input type="text" class="form-control" name="title" value="{{ $note->name }}"
                     required>
                   </div>
                 </div>
@@ -27,7 +29,7 @@
                   <div class="form-group">
                     <label>Contenido</label>
                     <div class="form-group">
-                      <textarea class="form-control" rows="5">{{ $note->content }}
+                      <textarea class="form-control" name="content" rows="5">{{ $note->content }}
                       </textarea>
                     </div>
                   </div>
@@ -37,7 +39,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="bmd-label-floating">Materia</label>
-                    <select class="form-control" >
+                    <select class="form-control" name="subject">
                     <option value="">Materias</option>
                     @foreach($subjects as $subject)
                       <option value="{{ $subject->id }}" {{ $note->subject != null && $note->subject->id == $subject->id ? 'selected' : '' }}>
@@ -51,7 +53,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="bmd-label-floating">Color</label>
-                    <select class="form-control" >
+                    <select class="form-control" name="color">
                     <option value="">Colores</option>
                     @foreach($colors as $color)
                       <option value="{{ $color->id }}" {{ $note->color != null && $note->color->id == $color->id ? 'selected' : '' }}
@@ -79,7 +81,6 @@
               <button type="submit" class="btn btn-primary pull-right">Modificar apunte</button>
               <div class="clearfix"></div>
 
-            </form>
           </div>
         </div>
       </div>
@@ -94,5 +95,6 @@
         </div>
       </div>
     </div>
-  </div>
+  </form>
+</div>
 @endsection

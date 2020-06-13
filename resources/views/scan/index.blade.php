@@ -37,7 +37,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-2 text-center">
+        <div class="col-md-2 text-center d-flex align-items-stretch">
             <div class="card">
                 <div class="card-header">Crear una nota</div>
 

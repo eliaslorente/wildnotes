@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/', 'NoteController@index')->name('notes');
     Route::post('/', 'NoteController@filter')->name('notes.filter');
     Route::get('/edit/{id}', 'NoteController@edit')->name('notes.edit');
+    Route::post('/update/{id}', 'NoteController@update');
     Route::get('/delete/{id}', 'NoteController@destroy')->name('notes.delete');
     Route::get('/{id}', 'NoteController@show')->name('notes.show');
   });
