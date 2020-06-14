@@ -25,7 +25,7 @@
   <nav class="navbar navbar-expand-lg bg-primary fixed-top navbar-transparent " color-on-scroll="400">
     <div class="container">
       <div class="navbar-translate">
-        <a class="navbar-brand" href="/" rel="tooltip" title="Designed by Invision. Coded by Creative Tim" data-placement="bottom" target="_blank">
+        <a class="navbar-brand" href="/" rel="tooltip"  data-placement="bottom" >
           {{ config('app.name', 'WildNotes') }}
         </a>
       </div>
@@ -35,19 +35,19 @@
               @auth
                 <li class="nav-item">
                   <a class="nav-link" href="{{ url('/home') }}">
-                    <p>Home</p>
+                    <p>INICIO</p>
                   </a>
                 </li>
               @else
                 <li class="nav-item">
                   <a class="nav-link" href="{{ route('login') }}">
-                    <p>Login</p>
+                    <p>ACCEDER</p>
                   </a>
                 </li>
                 @if (Route::has('register'))
                   <li class="nav-item">
                     <a class="nav-link" href="{{ route('register') }}">
-                      <p>Register</p>
+                      <p>REGISTRARSE</p>
                     </a>
                   </li>
                 @endif
