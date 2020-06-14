@@ -8,14 +8,17 @@ use App\User;
 use App\Subject;
 use App\Tag;
 use App\Color;
+use App\Notification;
 use Auth;
 
 class NoteController extends Controller
 {
-
     private $subjects;
     private $tags;
     private $colors;
+
+    private $notifications;
+    private $notifCount;
 
     public function __construct(Request $request)
     {
@@ -23,6 +26,9 @@ class NoteController extends Controller
           $this->subjects = Subject::where('user_id', Auth::user()->id)->get();
           $this->tags = Tag::where('user_id', Auth::user()->id)->get();
           $this->colors = Color::all();
+
+          $this->notifications = Notification::where('userOwner_id', Auth::user()->id)->get();
+          $this->notifCount = count($this->notifications);
 
           return $next($request);
       });
@@ -41,7 +47,8 @@ class NoteController extends Controller
           'notes' => $notes,
           'subjects' => $this->subjects,
           'tags' => $this->tags,
-          'colors' => $this->colors
+          'colors' => $this->colors,
+          'notifCount' => $this->notifCount
         ]);
     }
 
@@ -67,6 +74,7 @@ class NoteController extends Controller
           'subjects' => $this->subjects,
           'tags' => $this->tags,
           'colors' => $this->colors,
+          'notifCount' => $this->notifCount,
           //Mantiene seleccionados los checks
           'checkColors' => $request->colors,
           'checkSubjects' => $request->subjects
@@ -93,6 +101,7 @@ class NoteController extends Controller
             'subjects' => $this->subjects,
             'tags' => $this->tags,
             'colors' => $this->colors,
+            'notifCount' => $this->notifCount
           ]);
         } else {
           return redirect('notes');
@@ -117,33 +126,13 @@ class NoteController extends Controller
             'note' => $note,
             'subjects' => $this->subjects,
             'tags' => $this->tags,
-            'colors' => $this->colors
+            'colors' => $this->colors,
+            'notifCount' => $this->notifCount
           ]);
         } else {
           return redirect('notes');
         }
 
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -171,12 +160,15 @@ class NoteController extends Controller
       $note->subject_id = $request->subject != null ? $request->subject : null;
       $note->color_id = $request->color != null ? $request->color : null;
       $note->save();
-      
+
       $note->tags()->sync($request->tags);
 
       return redirect()->action(
           'NoteController@show', ['id' => $note->id]
-      )->with('success', 'La nota se ha editado correctamente');
+      )->with([
+        'success' => 'La nota se ha editado correctamente',
+        'notifCount' => $this->notifCount
+      ]);
 
     }
 
@@ -191,6 +183,9 @@ class NoteController extends Controller
         $note = Note::find($id);
         $note->delete();
 
-        return back()->with('success', 'Se ha eliminado la nota con éxito');
+        return back()->with([
+          'success' => 'Se ha eliminado la nota con éxito',
+          'notifCount' => $this->notifCount
+        ]);
     }
 }

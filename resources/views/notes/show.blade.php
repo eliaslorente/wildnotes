@@ -1,5 +1,10 @@
 @extends('layouts.timLayout')
 @section('classDiv', 'w-100')
+@section('notifications')
+  @if(isset($notifCount) && $notifCount > 0)
+    <span class="notification">{{ $notifCount }}</span>
+  @endif
+@endsection
 
 @section('content')
 <div class="content">

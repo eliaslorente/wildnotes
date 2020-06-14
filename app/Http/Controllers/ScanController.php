@@ -11,6 +11,7 @@ use App\Note;
 use App\Subject;
 use App\Tag;
 use App\Color;
+use App\Notification;
 use Auth;
 
 class ScanController extends Controller
@@ -19,6 +20,9 @@ class ScanController extends Controller
     private $subjects;
     private $colors;
 
+    private $notifications;
+    private $notifCount;
+
     public function __construct(Request $request)
     {
       $this->middleware(function ($request, $next) {
@@ -26,6 +30,8 @@ class ScanController extends Controller
           $this->subjects = Subject::where('user_id', Auth::id())->get();
           $this->colors = Color::all();
 
+          $this->notifications = Notification::where('userOwner_id', Auth::user()->id)->get();
+          $this->notifCount = count($this->notifications);
           return $next($request);
       });
     }
@@ -35,14 +41,13 @@ class ScanController extends Controller
         return view('scan.index', [
           'tags' => $this->tags,
           'subjects' => $this->subjects,
-          'colors' => $this->colors
+          'colors' => $this->colors,
+          'notifCount' => $this->notifCount
         ]);
     }
 
     public function store(Request $request) {
-
-        //dd($request->tags);
-
+        
         $request->validate([
           'title' => 'required',
           'content' => 'required'
@@ -89,7 +94,8 @@ class ScanController extends Controller
           'success' => 'La nota ha sido guardada correctamente',
           'tags' => $this->tags,
           'subjects' => $this->subjects,
-          'colors' => $this->colors
+          'colors' => $this->colors,
+          'notifCount' => $this->notifCount
       ]);
     }
 
@@ -115,7 +121,8 @@ class ScanController extends Controller
           'imageUploadModal' => true,
           'tags' => $this->tags,
           'subjects' => $this->subjects,
-          'colors' => $this->colors
+          'colors' => $this->colors,
+          'notifCount' => $this->notifCount
         ]);
       }
     }

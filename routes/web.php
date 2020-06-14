@@ -21,11 +21,16 @@ Auth::routes();
 
 Route::get('home', 'HomeController@index')->name('home');
 
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/admin', 'AdminController@index')->name('admin');
+});
 
 Route::group(['middleware' => ['auth']], function () {
   Route::prefix('notifications')->group(function () {
     Route::get('/', 'NotificationsController@index')->name('notif');
     Route::post('/search', 'NotificationsController@search')->name('notif.search');
+    Route::post('/send', 'NotificationsController@sendNotes')->name('notif.send');
+    Route::post('/action', 'NotificationsController@action')->name('notif.action');
   });
 });
 

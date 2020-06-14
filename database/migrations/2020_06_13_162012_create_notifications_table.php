@@ -16,11 +16,14 @@ class CreateNotificationsTable extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
             //Usuario que te envia la nota
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('userOwner_id');
+            $table->foreign('userOwner_id')->references('id')->on('users');
             //Nota que se quiere recibir
             $table->unsignedBigInteger('note_id');
             $table->foreign('note_id')->references('id')->on('notes');
+            //Usuario que desea compartir
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

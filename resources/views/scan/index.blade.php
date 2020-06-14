@@ -1,5 +1,10 @@
 @extends('layouts.layout')
 @section('title', 'Escanear')
+@section('notifications')
+  @if(isset($notifCount) && $notifCount > 0)
+    <span class="notification2">{{ $notifCount }}</span>
+  @endif
+@endsection
 
 @section('content')
 <div class="content">
@@ -17,7 +22,6 @@
 
                             <div class="col-md-12">
                                 <input id="image" type="file" class="form-control-file {{ $errors->has('image') ? ' is-invalid' : '' }}" name="image" value="{{ old('image') }}" required autofocus>
-
                                 @if ($errors->has('image'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('image') }}</strong>
@@ -31,7 +35,6 @@
                                     Crear
                                 </button>
                             </div>
-
                         </div>
                     </form>
                 </div>

@@ -11,23 +11,16 @@
       </div>
       @if (Auth::user()->role->role_name == 'admin')
         <div class="navbar-wrapper">
-          <a class="navbar-brand" href="#">Administrar usuarios</a>
+          <a class="navbar-brand" href="{{ route('admin') }}">Ver usuarios</a>
         </div>
       @endif
       <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav">
           <li class="nav-item dropdown">
-            <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link" href="{{ route('notif') }}" id="navbarDropdownMenuLink" >
               <i class="material-icons">notifications</i>
-              <span class="notification">5</span>
+              @yield('notifications')
             </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Mike John responded to your email</a>
-              <a class="dropdown-item" href="#">You have 5 new tasks</a>
-              <a class="dropdown-item" href="#">You're now friend with Andrew</a>
-              <a class="dropdown-item" href="#">Another Notification</a>
-              <a class="dropdown-item" href="#">Another One</a>
-            </div>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

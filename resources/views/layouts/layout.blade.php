@@ -21,12 +21,14 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 
+    <!-- FontAwesome -->
+    <link href="{{ asset('fontawesome/css/all.min.css') }}" rel="stylesheet" />
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
 <div id="app" class="main-panel">
-  {{--@include('partials.navbar')--}}
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light pb-5">
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -42,11 +44,17 @@
       </li>
       @if (Auth::user()->role->role_name == 'admin')
         <li class="nav-item">
-          <a class="nav-link" href="#">Administrar usuarios</a>
+          <a class="nav-link" href="{{ route('admin') }}">Ver usuarios</a>
         </li>
       @endif
     </ul>
     <ul class="navbar-nav">
+      <li class="nav-item ">
+        <a class="nav-link" href="{{ route('notif') }}" >
+          <i class="material-icons">notifications</i>
+          @yield('notifications')
+        </a>
+      </li>
       <li class="nav-item ">
         <a class="dropdown-item" href="{{ route('logout') }}"
            onclick="event.preventDefault();

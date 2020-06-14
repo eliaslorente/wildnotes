@@ -1,9 +1,12 @@
 @extends('layouts.timLayout')
-
 @include('partials.sidebar')
+@section('notifications')
+  @if(isset($notifCount) && $notifCount > 0)
+    <span class="notification">{{ $notifCount }}</span>
+  @endif
+@endsection
 
 @section('content')
-
 <div class="content">
   <div class="container-fluid">
     @foreach($notes->chunk(4) as $four)

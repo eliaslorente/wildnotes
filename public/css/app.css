@@ -10933,25 +10933,20 @@ a.text-dark:focus {
   }
 }
 
-.btn-wild {
-  background-color: #9c27b0;
-  border-color: #9c27b0;
-  color: white;
-}
-
-.modal {
-  overflow-y:auto;
-}
-
-.page-link {
-  color: #9c27b0;
-}
-
-.page-item.active .page-link {
-  background-color: #9c27b0;
-  border-color: #9c27b0;
-}
-
-a {
-  color: #9c27b0;
+.navbar .notification2 {
+  position: absolute;
+  top: 5px;
+  border: 1px solid #FFF;
+  right: 150px;
+  font-size: 9px;
+  background: #f44336;
+  color: #FFFFFF;
+  min-width: 20px;
+  padding: 0px 5px;
+  height: 20px;
+  border-radius: 10px;
+  text-align: center;
+  line-height: 19px;
+  vertical-align: middle;
+  display: block;
 }

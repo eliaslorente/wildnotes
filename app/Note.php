@@ -7,6 +7,7 @@ use App\User;
 use App\Tag;
 use App\Subject;
 use App\Color;
+use App\Notification;
 
 class Note extends Model
 {
@@ -29,5 +30,10 @@ class Note extends Model
   public function color()
   {
       return $this->belongsTo(Color::class);
+  }
+
+  public function notifications()
+  {
+      return $this->belongsTo(Notification::class);
   }
 }

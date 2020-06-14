@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Note;
 use App\Role;
+use App\Notification;
 
 class User extends Authenticatable
 {
@@ -20,6 +21,11 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function notifications()
+    {
+        return $this->belongsTo(Notification::class);
     }
 
     /**

@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Notification;
+use Auth;
 
 class HomeController extends Controller
 {
+    private $notifications;
+    private $notifCount;
     /**
      * Create a new controller instance.
      *
@@ -13,7 +17,12 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(function ($request, $next) {
+            $this->middleware('auth');
+            $this->notifications = Notification::where('userOwner_id', Auth::user()->id)->get();
+            $this->notifCount = count($this->notifications);
+            return $next($request);
+        });
     }
 
     /**
@@ -23,6 +32,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('home', [
+          'notifCount' => $this->notifCount
+        ]);
     }
 }
